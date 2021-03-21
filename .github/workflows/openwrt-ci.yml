@@ -7,7 +7,7 @@
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
 
-name: OpenWrt-CI
+name: 添加自定义插件、主题
 
 on:
   push:
@@ -44,6 +44,14 @@ jobs:
           sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
+          
+      - name: 拉取其他人的。
+        run: |
+          cd package
+          mkdir openwrt-packages
+          cd openwrt-packages
+          git clone https://github.com/kenzok8/openwrt-packages.git          
+          
 
           # sudo mkdir -p -m 777 /mnt/openwrt/bin /mnt/openwrt/build_dir/host /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir
           # ln -s /mnt/openwrt/bin ./bin
@@ -142,47 +150,55 @@ jobs:
 
           # 常用LuCI插件选择:
           # cat >> .config <<EOF
-          # CONFIG_PACKAGE_luci-app-adbyby-plus=y
-          # CONFIG_PACKAGE_luci-app-aria2=y
-          # CONFIG_PACKAGE_luci-app-baidupcs-web=y
-          # CONFIG_PACKAGE_luci-app-frpc=y
-          # CONFIG_PACKAGE_luci-app-qbittorrent=y
-          # CONFIG_PACKAGE_luci-app-ttyd=y
-          # CONFIG_PACKAGE_luci-app-webadmin=y
+          CONFIG_PACKAGE_luci-app-adbyby-plus=y
+          CONFIG_PACKAGE_luci-app-aria2=y
+          CONFIG_PACKAGE_luci-app-baidupcs-web=y
+          CONFIG_PACKAGE_luci-app-frpc=y
+          CONFIG_PACKAGE_luci-app-qbittorrent=y
+          CONFIG_PACKAGE_luci-app-ttyd=y
+          CONFIG_PACKAGE_luci-app-webadmin=y
           CONFIG_PACKAGE_luci-i18n-webadmin-zh-cn=y
 
-          # CONFIG_PACKAGE_luci-app-wireguard=y
-          # CONFIG_PACKAGE_luci-app-wrtbwmon=y
+          CONFIG_PACKAGE_luci-app-wrtbwmon=y
           
           CONFIG_PACKAGE_luci-app-ssr-plus=y
           CONFIG_PACKAGE_luci-i18n-ssr-plus-zh-cn=y
           CONFIG_PACKAGE_luci-app-syncdial=y
-
-
-          
+          CONFIG_PACKAGE_luci-app-adguardhome=y
+          CONFIG_PACKAGE_luci-app-advancedsetting=y
+          CONFIG_PACKAGE_luci-app-jd-dailybonus=y
+          CONFIG_PACKAGE_luci-app-passwall=y
+          CONFIG_PACKAGE_luci-app-smartdns=y
+          # CONFIG_PACKAGE_
+          # CONFIG_PACKAGE_
+          # CONFIG_PACKAGE_
+          # CONFIG_PACKAGE_
           # EOF
 
           # LuCI主题:
           # cat >> .config <<EOF
-          # CONFIG_PACKAGE_luci-theme-argon=y
-          # CONFIG_PACKAGE_luci-theme-netgear=y
+          CONFIG_PACKAGE_luci-theme-argon_new=y
+          CONFIG_PACKAGE_luci-theme-atmaterial=y
+          CONFIG_PACKAGE_luci-theme-netgear=y
+          CONFIG_PACKAGE_luci-theme-edge=y
+          CONFIG_PACKAGE_luci-theme-ifit=y
           # EOF
 
           # 常用软件包:
           # cat >> .config <<EOF
-          # CONFIG_PACKAGE_curl=y
-          # CONFIG_PACKAGE_htop=y
-          # CONFIG_PACKAGE_nano=y
-          # CONFIG_PACKAGE_screen=y
-          # CONFIG_PACKAGE_tree=y
-          # CONFIG_PACKAGE_vim-fuller=y
-          # CONFIG_PACKAGE_wget=y
+          CONFIG_PACKAGE_curl=y
+          CONFIG_PACKAGE_htop=y
+          CONFIG_PACKAGE_nano=y
+          CONFIG_PACKAGE_screen=y
+          CONFIG_PACKAGE_tree=y
+          CONFIG_PACKAGE_vim-fuller=y
+          CONFIG_PACKAGE_wget=y
           # EOF
 
           # 取消编译VMware镜像以及镜像填充 (不要删除被缩进的注释符号):
           # cat >> .config <<EOF
           # # CONFIG_TARGET_IMAGES_PAD is not set
-          # # CONFIG_VMDK_IMAGES is not set
+          # CONFIG_VMDK_IMAGES is not set
           # EOF
 
           # 
